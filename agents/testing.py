@@ -29,4 +29,4 @@ def build_task(feature: dict) -> Task:
     return Task(description=INSTRUCTIONS + "\nFeature: " + str(feature.get("title", ""))
                 + "\n" + str(feature.get("description", ""))
                 + "\n" + str(feature.get("acceptance_criteria", [])),
-                expected_output='Un informe de pruebas.', agent=agent)
+                expected_output='Un informe de pruebas. con nombre: testing_report.md', agent=agent)
