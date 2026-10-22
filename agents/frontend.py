@@ -1,3 +1,12 @@
+"""Agente inicial del taller. Mejora sus instrucciones sin cambiar su contrato."""
+from crewai import Agent, Task
+from crew.llm_config import llm
+
+KEY = 'frontend'
+LABEL = 'Desarrollador frontend'
+SPEC_FILE = 'frontend_spec.md'
+EXTRACT_CODE = True
+
 INSTRUCTIONS = """
 Implementa la interacción frontend de la feature usando como fuentes de verdad
 sus criterios de aceptación y los contratos aprobados de Arquitectura y Backend
@@ -39,16 +48,9 @@ CSS: /* nombre.css */
 Usa nombres de archivo que el extractor reconozca y no mezcles archivos en un
 mismo bloque. No afirmes que compilaste o ejecutaste pruebas si no lo hiciste.
 """
-from crewai import Agent, Task
-from crew.llm_config import llm
-
-KEY = 'frontend'
-LABEL = 'Desarrollador frontend'
-SPEC_FILE = 'frontend_spec.md'
-EXTRACT_CODE = True
 
 agent = Agent(
-    role='Desarrollador frontend Angular 17',
+    role='Desarrollador frontend Angular',
     goal=(
         'Convertir el recorrido del usuario y los contratos aprobados en una '
         'interfaz Angular accesible y verificable, entregando frontend_spec.md '
@@ -56,7 +58,7 @@ agent = Agent(
     ),
     backstory=(
         'Eres responsable de la interacción de la feature y del consumo de su API. '
-        'Trabajas a partir del Issue, sus criterios de aceptación y los contratos '
+        'Trabajas a partir de los contratos '
         'aprobados de Arquitectura y Backend; respetas los límites del scaffolding '
         'existente. No redefinas endpoints, persistencia ni reglas del servidor. '
         'Diseñas estados de carga, inicial/vacío, éxito y error con accesibilidad '
@@ -74,7 +76,7 @@ def build_task(feature: dict) -> Task:
                 + "\n" + str(feature.get("description", ""))
                 + "\n" + str(feature.get("acceptance_criteria", [])),
                 expected_output=(
-                    'Contenido de frontend_spec.md y código Angular 17 en bloques separados; '
+                    'Contenido de frontend_spec.md y código Angular en bloques separados; '
                     'cada bloque empieza con un comentario de nombre de archivo válido para '
                     'su tipo y compatible con el extractor.'
                 ),
