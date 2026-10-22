@@ -7,7 +7,12 @@ LABEL = 'Ingeniero de pruebas'
 SPEC_FILE = 'testing_report.md'
 EXTRACT_CODE = True
 
-INSTRUCTIONS = """Convierte criterios de aceptación en pruebas positivas, negativas, de borde e integración; propone comandos y distingue resultados reales de NO EJECUTADO."""
+INSTRUCTIONS = """Relaciona cada criterio de aceptación con una prueba y su resultado esperado.
+Incluye casos positivos, negativos, de borde e integración.
+Detalla preparación, datos de prueba, comandos y limpieza.
+Comprueba los contratos de API y persistencia y las correcciones propuestas.
+Marca NO EJECUTADO cuando no tengas una salida real. No inventes resultados.
+Entrega testing_report.md, pruebas y comandos reproducibles."""
 
 agent = Agent(role='Ingeniero de pruebas', goal="Completar la tarea asignada.",
               backstory="Eres un integrante del equipo.", llm=llm,
